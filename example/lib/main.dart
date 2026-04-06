@@ -6,6 +6,7 @@ class UserEntity {}
 
 // --- Data ---
 class UserModel {}
+
 class UserResponse {}
 
 // --- Presentation Components ---
@@ -41,10 +42,9 @@ class BadDomainComponent with WardenMember {
 
 void main() {
   // Set up the Warden to log warnings without crashing the app, and enable the SnackBar!
-  WardenConfig.setup(const WardenConfig(
-    mode: LogMode.logOnly,
-    enableInAppAlerts: true,
-  ));
+  WardenConfig.setup(
+    const WardenConfig(mode: LogMode.logOnly, enableInAppAlerts: true),
+  );
   runApp(const MyApp());
 }
 
@@ -62,7 +62,8 @@ class MyApp extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(
-                onPressed: () => CleanPresentationComponent().triggerCleanFlow(),
+                onPressed: () =>
+                    CleanPresentationComponent().triggerCleanFlow(),
                 child: const Text('Clean Presentation Flow (OK)'),
               ),
               const SizedBox(height: 20),

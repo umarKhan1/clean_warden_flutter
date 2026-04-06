@@ -12,7 +12,9 @@ class MockDomainMember with WardenMember {
 }
 
 class MockDataModel {}
+
 class MockDomainEntity {}
+
 class MockNetworkResponse {}
 
 void main() {
@@ -31,15 +33,15 @@ void main() {
       );
     });
 
-    test('does NOT throw exception when Presentation layer receives an Entity', () {
-      final target = MockPresentationMember();
-      final data = MockDomainEntity();
+    test(
+      'does NOT throw exception when Presentation layer receives an Entity',
+      () {
+        final target = MockPresentationMember();
+        final data = MockDomainEntity();
 
-      expect(
-        () => WardenEngine.check(target, data),
-        returnsNormally,
-      );
-    });
+        expect(() => WardenEngine.check(target, data), returnsNormally);
+      },
+    );
 
     test('throws exception when Domain layer receives a Response', () {
       final target = MockDomainMember();

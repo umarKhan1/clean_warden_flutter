@@ -1,4 +1,3 @@
-library clean_warden_flutter;
 
 export 'src/identity/layer_enums.dart';
 export 'src/identity/warden_member.dart';

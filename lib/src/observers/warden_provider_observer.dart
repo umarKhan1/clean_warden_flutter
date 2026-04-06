@@ -11,7 +11,7 @@ base class WardenProviderObserver extends ProviderObserver {
     Object? newValue,
   ) {
     super.didUpdateProvider(context, previousValue, newValue);
-    
+
     // In Riverpod 3.x, checking if the provider definition itself implements WardenMember
     if (context.provider is WardenMember) {
       WardenEngine.check(context.provider as WardenMember, newValue);

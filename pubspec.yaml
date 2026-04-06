@@ -1,8 +1,8 @@
 name: clean_warden_flutter
-description: "A new Flutter package project."
-version: 0.0.1
-homepage:
-
+description: "A strict, powerful, and automated architectural boundary enforcement tool for Flutter projects. It intercepts runtime data flows to prevent Clean Architecture violations."
+version: 1.0.1
+homepage: https://github.com/umarKhan1/clean_warden_flutter
+repository: https://github.com/umarKhan1/clean_warden_flutter
 environment:
   sdk: ^3.11.4
   flutter: ">=1.17.0"

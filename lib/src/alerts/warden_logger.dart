@@ -12,6 +12,7 @@ class WardenLogger {
     final output = '\n$_red$border\n$maskedMessage\n$border$_reset\n';
     developer.log(output, name: 'CleanWarden');
     // Also print to ensure it's visible in all consoles
+    // ignore: avoid_print
     print(output);
   }
 
@@ -19,6 +20,7 @@ class WardenLogger {
     final maskedMessage = SensitiveDataMasker.mask(rawMessage);
     final output = '$_yellow$maskedMessage$_reset';
     developer.log(output, name: 'CleanWarden');
+    // ignore: avoid_print
     print(output);
   }
 }

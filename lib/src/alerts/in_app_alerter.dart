@@ -26,7 +26,11 @@ class InAppAlerter {
                 SizedBox(width: 8),
                 Text(
                   'Clean Warden Alert',
-                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
                 ),
               ],
             ),

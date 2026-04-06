@@ -10,7 +10,7 @@ import '../alerts/in_app_alerter.dart';
 class WardenViolationException implements Exception {
   final String message;
   WardenViolationException(this.message);
-  
+
   @override
   String toString() => 'WardenViolationException: $message';
 }
@@ -20,7 +20,7 @@ class WardenEngine {
   /// Evaluates whether passing [data] to [target] violates Clean Architecture rules.
   static void check(WardenMember target, Object? data) {
     if (data == null) return;
-    
+
     final config = WardenConfig.current;
 
     // Feature filtering
@@ -43,7 +43,8 @@ class WardenEngine {
         _triggerViolation(
           target: target,
           dataName: dataName,
-          rule: 'Presentation Logic should interact with Domain Entities, not Data Models.',
+          rule:
+              'Presentation Logic should interact with Domain Entities, not Data Models.',
           suggestion: WardenSuggestions.forPresentationModel(),
         );
       }
@@ -51,11 +52,15 @@ class WardenEngine {
 
     // Rule 2: Domain layer shouldn't know about requests or responses directly.
     if (target.layer == WardenLayer.domain) {
-      if (dataName.contains('Response') || dataName.contains('Request') || dataName.contains('Model') || dataName.contains('Dto')) {
-         _triggerViolation(
+      if (dataName.contains('Response') ||
+          dataName.contains('Request') ||
+          dataName.contains('Model') ||
+          dataName.contains('Dto')) {
+        _triggerViolation(
           target: target,
           dataName: dataName,
-          rule: 'Domain layer must be completely independent of Data representations (Models/Responses).',
+          rule:
+              'Domain layer must be completely independent of Data representations (Models/Responses).',
           suggestion: WardenSuggestions.forDomainData(),
         );
       }
@@ -68,7 +73,8 @@ class WardenEngine {
     required String rule,
     required String suggestion,
   }) {
-    final message = '''
+    final message =
+        '''
 ARCHITECTURAL VIOLATION DETECTED!
 Location: ${target.runtimeType} (Layer: ${target.layer.name})
 Offending Data: $dataName

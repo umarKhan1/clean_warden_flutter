@@ -9,7 +9,10 @@ class WardenType {
   /// Checks if the data type name indicates it is a Data layer Model.
   static bool isModel(Object? data) {
     final name = extractName(data);
-    return name.contains('Model') || name.contains('Dto') || name.contains('Response') || name.contains('Request');
+    return name.contains('Model') ||
+        name.contains('Dto') ||
+        name.contains('Response') ||
+        name.contains('Request');
   }
 
   /// Checks if the data type name indicates it is a Domain layer Entity.

@@ -17,8 +17,9 @@ class WardenConfig {
   /// Specific features to observe. If empty, observes all features.
   final List<String> allowedFeatures;
 
-  /// Specific layers to bypass. 
-  final List<dynamic> ignoredLayers; // Cannot import WardenLayer easily if not passed, but we assume using strings or dynamic if lazy. Actually, we should just import it.
+  /// Specific layers to bypass.
+  final List<dynamic>
+  ignoredLayers; // Cannot import WardenLayer easily if not passed, but we assume using strings or dynamic if lazy. Actually, we should just import it.
 
   /// Triggers a sleek in-app SnackBar when violations occur. Requires passing `WardenConfig.messengerKey` to MaterialApp.
   final bool enableInAppAlerts;
@@ -34,7 +35,8 @@ class WardenConfig {
   static WardenConfig current = const WardenConfig();
 
   /// Global key to be passed into `MaterialApp(scaffoldMessengerKey: ...)`
-  static final GlobalKey<ScaffoldMessengerState> messengerKey = GlobalKey<ScaffoldMessengerState>();
+  static final GlobalKey<ScaffoldMessengerState> messengerKey =
+      GlobalKey<ScaffoldMessengerState>();
 
   /// Updates the global configuration.
   static void setup(WardenConfig config) {
