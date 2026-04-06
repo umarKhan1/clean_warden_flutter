@@ -13,6 +13,10 @@ As a project scales, architectural erosion is inevitable. Junior developers or r
 
 Simple code reviews are not scalable for catching every leak. Clean Warden automates this supervision. By intercepting data flows at runtime, the package creates a fail-safe that loudly alerts developers the exact moment an architectural boundary is breached. It acts as an automated Senior Architect sitting alongside every developer on your team.
 
+## Architectural Principles
+
+This package enforces Dependency Inversion and the Interface Segregation Principle. It treats the 'Domain' as the center of the universe, and 'Data' and 'Presentation' as detail-oriented plugins that should never talk directly.
+
 ## Core Features
 
 - **Strict Boundary Rules:** Automatically triggers violations if structural boundaries are broken.
@@ -20,7 +24,10 @@ Simple code reviews are not scalable for catching every leak. Clean Warden autom
 - **In-App SnackBar Alerter:** Optional floating UI alerts that display violations instantly on-screen without requiring the terminal.
 - **High-Visibility Formatting:** Terminal warnings utilize ANSI color codes with highly visible separation borders alongside useful "Suggested Fixes".
 - **Sensitive Data Masking:** Hardcoded protections mask attributes like `password`, `token`, and `nif` out of the raw error payloads to secure your users' information in the logs.
-- **Reflection-free:** Zero reliance on `dart:mirrors`, meaning it works flawlessly and performantly on Flutter Web, iOS, and Android.
+
+## Performance & Compatibility
+
+Because we avoided `dart:mirrors` in favor of string-based type checking, the package adds zero overhead to the Flutter build and is 100% compatible with AOT compilation and Flutter Web.
 
 ---
 
@@ -184,3 +191,11 @@ This enables developers and QA testers to physically see the architectural leaks
 Error logs inherently print string representations of objects. If an object payload contains security keys, Clean Warden intercepts the string and automatically masks it.
 
 If a rejected payload has `password: "secretCode123"` inside its parameters, the console output will scrub it to read: `password: ***`. Supported automatic masked keys include: `password`, `token`, `auth`, `secret`, and `nif`.
+
+---
+
+## Meet the Author
+
+**Muhammad Omar**
+- LinkedIn: [https://www.linkedin.com/in/muhammad-omar-0335/](https://www.linkedin.com/in/muhammad-omar-0335/)
+- GitHub: [https://github.com/umarKhan1](https://github.com/umarKhan1)
