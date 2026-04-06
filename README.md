@@ -178,6 +178,52 @@ Through `WardenConfig`, the architecture's strictness can be toggled via `LogMod
 - **`LogMode.logOnly`**: Recommended for initial adoption or production environments. The engine cleanly formats the violation in the terminal or SnackBar but allows the code to execute normally without interrupting the user.
 - **`LogMode.strictCrash`**: Recommended for development and QA builds. If an architectural violation occurs, an unhandled `WardenViolationException` is immediately thrown, intentionally crashing the app to force developers to fix the mapping layer before committing their code.
 
+### Gradual Adoption for Legacy Apps
+
+Applying strict architecture rules to a massive, 3-year-old codebase can suddenly trigger hundreds of errors. Clean Warden is purposely designed for gradual adoption!
+
+You can restrict the Warden to only monitor specific features, or temporarily ignore problematic layers via your `WardenConfig`:
+
+```dart
+WardenConfig.setup(const WardenConfig(
+  mode: LogMode.strictCrash,
+  // Only monitor the new "checkout" and "auth" features
+  allowedFeatures: ['checkout', 'auth'], 
+  // Temporarily ignore the infrastructure layer while it's being refactored
+  ignoredLayers: [WardenLayer.infrastructure],
+));
+```
+
+To bind a class to a feature, override the optional `featureName` inside your `WardenMember`:
+
+```dart
+class CheckoutBloc extends Bloc<dynamic, dynamic> with WardenMember {
+  @override
+  WardenLayer get layer => WardenLayer.presentation;
+
+  @override
+  String get featureName => 'checkout'; // The Warden is watching this feature!
+}
+```
+
+### Custom State Management (Provider, GetX, MobX)
+
+If you aren't using BLoC or Riverpod, you can still easily utilize the system by placing the manual verification check inside your setters or `notifyListeners()`.
+
+```dart
+class AuthViewModel extends ChangeNotifier with WardenMember {
+  @override
+  WardenLayer get layer => WardenLayer.presentation;
+
+  void updateState(Object newState) {
+    // Manually run the verification check before applying the state
+    WardenEngine.check(this, newState);
+    
+    // ... apply state & pass to UI
+  }
+}
+```
+
 ### In-App Alerter
 
 If `enableInAppAlerts: true` is passed to the configuration and the `WardenConfig.messengerKey` is attached to your `MaterialApp`, a prominent UI SnackBar will drop down from the top of the user's screen reading:
@@ -190,12 +236,25 @@ This enables developers and QA testers to physically see the architectural leaks
 
 Error logs inherently print string representations of objects. If an object payload contains security keys, Clean Warden intercepts the string and automatically masks it.
 
-If a rejected payload has `password: "secretCode123"` inside its parameters, the console output will scrub it to read: `password: ***`. Supported automatic masked keys include: `password`, `token`, `auth`, `secret`, and `nif`.
+If a rejected payload has `password: "secretCode123"` inside its parameters, the console output will scrub it to read: `password: ***`. Supported automatic masked keys include: `password`, `token`, `auth`, `secret`.
+
+---
+
+## Community & Contributing
+
+This package is maintained as a contribution to the global Flutter ecosystem. Developers are encouraged to submit pull requests and resolve issues through the official repository.
+
+---
+
+## License
+
+This project is licensed under the MIT License - see the `LICENSE` file for details.
 
 ---
 
 ## Meet the Author
 
-**Muhammad Omar**
-- LinkedIn: [https://www.linkedin.com/in/muhammad-omar-0335/](https://www.linkedin.com/in/muhammad-omar-0335/)
-- GitHub: [https://github.com/umarKhan1](https://github.com/umarKhan1)
+Developed and maintained by **Muhammad Omar**.
+
+- **LinkedIn:** [muhammad-omar-0335](https://www.linkedin.com/in/muhammad-omar-0335/)
+- **GitHub:** [umarKhan1](https://github.com/umarKhan1)
