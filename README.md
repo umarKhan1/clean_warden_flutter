@@ -1,6 +1,5 @@
 # Clean Warden Flutter
 
-![Pub Version](https://img.shields.io/pub/v/clean_warden_flutter)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
 A strict, powerful, and automated architectural boundary enforcement tool for Flutter projects utilizing Clean Architecture.
